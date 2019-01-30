@@ -1,0 +1,371 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>3. Vue &mdash; TechNote 1.0.1 文档</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="TechNote 1.0.1 文档" href="../index.html"/>
+        <link rel="up" title="前端" href="index.html"/>
+        <link rel="next" title="框架" href="../framework/index.html"/>
+        <link rel="prev" title="2. JS" href="js.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> TechNote
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../project/index.html">项目</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">前端</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="css.html">1. CSS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="js.html">2. JS</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">3. Vue</a><ul class="simple">
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../framework/index.html">框架</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tools/index.html">开发工具</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../linux/index.html">Linux</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">TechNote</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="index.html">前端</a> &raquo;</li>
+      
+    <li>3. Vue</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/font-end/vue.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="vue">
+<h1><a class="toc-backref" href="#id6">3. Vue</a><a class="headerlink" href="#vue" title="永久链接至标题">¶</a></h1>
+<div class="contents topic" id="id1">
+<p class="topic-title first">目录</p>
+<ul class="simple">
+<li><a class="reference internal" href="#vue" id="id6">Vue</a><ul>
+<li><a class="reference internal" href="#html" id="id7">HTML插值</a><ul>
+<li><a class="reference internal" href="#class-style" id="id8">绑定class, style</a></li>
+<li><a class="reference internal" href="#id2" id="id9">事件监听的修饰符</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id3" id="id10">Vue实例</a><ul>
+<li><a class="reference internal" href="#id4" id="id11">计算属性</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id5" id="id12">组件</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<p>Vue的核心是通过 <strong>模板语法</strong> <strong>声明式地</strong> 将数据渲染进DOM的系统（这个过程被称为 <strong>声明式渲染</strong>，这个渲染行为被成为 <strong>响应式</strong>）；即可以为DOM元素赋予变量。例如为一个div元素绑定一个Vue实例，则可以在这个div里使用这个实例的变量</p>
+<ul class="simple">
+<li>注：Vue可以将数据渲染到DOM文本、DOM属性、DOM元素</li>
+<li>注：Vue可以通过 <strong>条件和循环</strong> 将前端数据渲染进DOM——即将后端部分逻辑功能放在前端实现</li>
+</ul>
+<div class="section" id="html">
+<h2><a class="toc-backref" href="#id7">3.1. HTML插值</a><a class="headerlink" href="#html" title="永久链接至标题">¶</a></h2>
+<p>在HTML中插入Vue实例中定义的变量。插值分为文本插值和指令插值（两者的值均可以为JS表达式）</p>
+<ul>
+<li><p class="first">文本插值</p>
+</li>
+<li><p class="first">指令插值</p>
+<blockquote>
+<div><div class="highlight-html"><div class="highlight"><pre>&lt;form v-on:submit.prevent=&quot;onSubmit&quot;&gt;...&lt;/form&gt;
+&lt;标签 指令:参数.修饰符=&quot;值&quot;&gt;
+
+&lt;!-- 指令是一种特殊的属性；指令的值可以是JS表达式 --&gt;
+</pre></div>
+</div>
+<table border="1" class="docutils">
+<colgroup>
+<col width="14%" />
+<col width="19%" />
+<col width="19%" />
+<col width="49%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">指令</th>
+<th class="head">参数</th>
+<th class="head">修饰符</th>
+<th class="head">用途</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>v-bind</td>
+<td>HTML属性</td>
+<td>无</td>
+<td>HTML属性绑定</td>
+</tr>
+<tr class="row-odd"><td>v-on</td>
+<td>DOM事件</td>
+<td>有</td>
+<td>事件监听</td>
+</tr>
+<tr class="row-even"><td>v-for</td>
+<td>无</td>
+<td>无</td>
+<td>列表渲染</td>
+</tr>
+<tr class="row-odd"><td>v-if</td>
+<td>无</td>
+<td>无</td>
+<td>条件渲染</td>
+</tr>
+<tr class="row-even"><td>v-model</td>
+<td>无</td>
+<td>有</td>
+<td>表单输入绑定</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</li>
+</ul>
+<div class="section" id="class-style">
+<h3><a class="toc-backref" href="#id8">3.1.1. 绑定class, style</a><a class="headerlink" href="#class-style" title="永久链接至标题">¶</a></h3>
+<p>class, style本质上均是HTML属性，因此用v-bind指令绑定。其值可以是对象或者数组</p>
+<ul class="simple">
+<li>对象</li>
+</ul>
+<div class="highlight-html"><div class="highlight"><pre><span class="p">&lt;</span><span class="nt">div</span> <span class="na">v-bind:class</span><span class="o">=</span><span class="s">&quot;classObject&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<span class="c">&lt;!-- classObject: { active: true, &#39;text-danger&#39;: false } --&gt;</span>  <span class="c">&lt;!-- 有连字符的属性名需要用单引号引起来 --&gt;</span>
+
+<span class="p">&lt;</span><span class="nt">div</span> <span class="na">v-bind:style</span><span class="o">=</span><span class="s">&quot;styleObject&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<span class="c">&lt;!-- styleObject: { color: &#39;red&#39;, fontSize: &#39;13px&#39; } --&gt;</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>数组</li>
+</ul>
+<div class="highlight-html"><div class="highlight"><pre><span class="p">&lt;</span><span class="nt">div</span> <span class="na">v-bind:class</span><span class="o">=</span><span class="s">&quot;[{ active: isActive }, errorClass]&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<span class="c">&lt;!-- isActive为boolean类型 --&gt;</span>
+
+<span class="p">&lt;</span><span class="nt">div</span> <span class="na">v-bind:style</span><span class="o">=</span><span class="s">&quot;[baseStyleObjects, overridingStyleObjects]&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id2">
+<h3><a class="toc-backref" href="#id9">3.1.2. 事件监听的修饰符</a><a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h3>
+<p>event.preventDefault(), event.stopPropagation()</p>
+<p>.stop
+.prevent
+.capture
+.self
+.once
+.passive</p>
+</div>
+</div>
+<div class="section" id="id3">
+<h2><a class="toc-backref" href="#id10">3.2. Vue实例</a><a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h2>
+<div class="section" id="id4">
+<h3><a class="toc-backref" href="#id11">3.2.1. 计算属性</a><a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h3>
+<p>计算属性的值是 <strong>基于Vue实例定义的变量</strong> 计算而来的变量</p>
+<div class="highlight-html"><div class="highlight"><pre><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>{{ fullName }}<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+
+<span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
+    <span class="kd">let</span> <span class="nx">vm</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Vue</span><span class="p">({</span>
+        <span class="nx">el</span><span class="o">:</span> <span class="s1">&#39;p&#39;</span><span class="p">,</span>
+        <span class="nx">data</span><span class="o">:</span> <span class="p">{</span>
+            <span class="nx">firstName</span><span class="o">:</span> <span class="s1">&#39;John&#39;</span><span class="p">,</span>
+            <span class="nx">lastName</span><span class="o">:</span> <span class="s1">&#39;David&#39;</span>
+        <span class="p">},</span>
+        <span class="nx">computed</span><span class="o">:</span> <span class="p">{</span>
+            <span class="nx">fullName</span><span class="o">:</span> <span class="p">{</span>
+                <span class="c1">// getter使得fullName可以被取值</span>
+                <span class="nx">get</span><span class="o">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+                    <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">firstName</span> <span class="o">+</span> <span class="s1">&#39; &#39;</span> <span class="o">+</span> <span class="k">this</span><span class="p">.</span><span class="nx">lastName</span>
+                <span class="p">},</span>
+                <span class="c1">// setter使得fullName可以被赋值</span>
+                <span class="nx">set</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">newValue</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="kd">let</span> <span class="nx">names</span> <span class="o">=</span> <span class="nx">newValue</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">);</span>
+                    <span class="k">this</span><span class="p">.</span><span class="nx">firstName</span> <span class="o">=</span> <span class="nx">names</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+                    <span class="k">this</span><span class="p">.</span><span class="nx">lastName</span> <span class="o">=</span> <span class="nx">names</span><span class="p">[</span><span class="nx">names</span><span class="p">.</span><span class="nx">length</span> <span class="o">-</span> <span class="mi">1</span><span class="p">];</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+        <span class="p">},</span>
+    <span class="p">})</span>
+<span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="id5">
+<h2><a class="toc-backref" href="#id12">3.3. 组件</a><a class="headerlink" href="#id5" title="永久链接至标题">¶</a></h2>
+<p>组件是可复用的Vue实例（每用一次组件，就会有一个新的Vue实例被创建；组件类似于类）</p>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../framework/index.html" class="btn btn-neutral float-right" title="框架" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="js.html" class="btn btn-neutral" title="2. JS" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; 版权所有 2019, Tony Hua.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'1.0.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="../_static/translations.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>
