@@ -32,10 +32,9 @@ d. 使用make命令生成一定格式的文档（html、epub、…）
 
 使文档可被网络访问
 -------------------------
-a. 将文档项目托管在GitHub上
-b. 在项目的Settings选项中的GitHub Pages里进行设置
-
-.. image:: /.img/gitpage.JPG
+a. 建立git仓库，放入文档
+b. 在read the docs网站上导入git仓库
+c. 通过https://仓库名.readthedocs.io即可访问
 
 高级用法
 ----------------
