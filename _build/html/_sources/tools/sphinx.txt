@@ -6,14 +6,14 @@ Sphinx
 
 名词
 -----------
-文档编写工具：GitBook、MkDocs、Sphinx（三者均支持markdown标记语言；Sphinx默认支持rst标记语言）
+- 文档编写工具：GitBook、MkDocs、Sphinx（三者均支持markdown标记语言；Sphinx默认支持rst标记语言）
 
- - rst：纯文本标记语言。其是Python Doc-SIG的Docutils项目的一部分
+  - rst：纯文本标记语言。其是Python Doc-SIG的Docutils项目的一部分
 
-   - Docutils：一个开源的文本处理系统，包括rst
-   - 纯文本标记语言：markdown、rst …
+    - Docutils：一个开源的文本处理系统，包括rst
+    - 纯文本标记语言：markdown、rst …
 
- - Read the Docs：一个托管Sphinx项目的网站
+- 文档托管网站：Read The Docs
 
 用法
 ------------
