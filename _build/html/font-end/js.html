@@ -149,6 +149,47 @@
 <div class="section" id="id2">
 <h2>2.2. 事件<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
 </div>
+<div class="section" id="id3">
+<h2>2.3. JS模块化<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h2>
+<p>JS模块化规范：CommonJS、AMD、CMD、ES6 Module</p>
+<ul class="simple">
+<li>CommonJS是服务器模块化、同步加载模块</li>
+<li>AMD是浏览器模块化、异步加载模块</li>
+<li>ES6在语言标准上实现了模块化，旨在成为服务器和浏览器通用的模块解决方案</li>
+</ul>
+<div class="section" id="commonjs">
+<h3>2.3.1. CommonJS<a class="headerlink" href="#commonjs" title="永久链接至标题">¶</a></h3>
+<p>主要代表为NodeJS。用module.exports暴露模块内的接口，用require加载模块</p>
+<div class="highlight-js"><div class="highlight"><pre><span class="c1">// math.js</span>
+<span class="kd">var</span> <span class="nx">basicNum</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="kd">function</span> <span class="nx">add</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">){</span>
+    <span class="k">return</span> <span class="nx">a</span> <span class="o">+</span> <span class="nx">b</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">add</span><span class="o">:</span> <span class="nx">add</span><span class="p">,</span>
+    <span class="nx">basicNum</span><span class="o">:</span> <span class="nx">basicNum</span>
+<span class="p">}</span>
+
+<span class="c1">// index.js</span>
+<span class="kd">var</span> <span class="nx">math</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;./math&#39;</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">a</span><span class="p">;</span>
+<span class="nx">a</span> <span class="o">=</span> <span class="nx">math</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">5</span><span class="p">);</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">a</span><span class="p">);</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">math</span><span class="p">.</span><span class="nx">basicNum</span><span class="p">);</span>
+
+<span class="c1">//Node.js command</span>
+<span class="o">&gt;</span> <span class="nx">node</span> <span class="nx">index</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="amd">
+<h3>2.3.2. AMD<a class="headerlink" href="#amd" title="永久链接至标题">¶</a></h3>
+</div>
+<div class="section" id="es6-module">
+<h3>2.3.3. ES6 Module<a class="headerlink" href="#es6-module" title="永久链接至标题">¶</a></h3>
+</div>
+</div>
 </div>
 
 

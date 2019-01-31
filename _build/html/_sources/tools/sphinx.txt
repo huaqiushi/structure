@@ -35,7 +35,7 @@ d. 使用make命令生成一定格式的文档（html、epub、…）
 a. 建立git仓库，放入文档
 b. 在read the docs网站上导入git仓库
 c. 通过https://仓库名.readthedocs.io即可访问
-d. 将本地git仓库的文档提交至github，read the docs会自动更新文档
+d. 将本地git仓库的文档提交至github，Read The Docs会自动更新文档
 
 高级用法
 ----------------
