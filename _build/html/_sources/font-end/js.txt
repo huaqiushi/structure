@@ -17,7 +17,7 @@ JS模块化规范：CommonJS、AMD、CMD、ES6 Module
 
 CommonJS
 '''''''''''''''''''''
-主要代表为NodeJS。用module.exports暴露模块内的接口，用require加载模块
+主要代表为Node.js。用module.exports规定模块的对外接口，用require加载模块
 
 .. code-block:: js
 
@@ -45,6 +45,28 @@ CommonJS
 
 AMD
 '''''''''''''''''
+主要代表为Require.js。
+
+CMD
+''''''''''''''''
+主要代表为Sea.js。
 
 ES6 Module
-''''''''''''''''
+'''''''''''''''
+用export规定模块的对外接口，用import输入其他模块提供的功能
+
+.. code-block:: js
+
+    // profile.js
+    let firstName = 'Michael';
+    let lastName = 'Jackson';
+    let year = 1958;
+
+    export {firstName, lastName, year};
+
+    // main.js
+    import {firstName, lastName, year} from './profile.js';
+
+    function setName(element) {
+      element.textContent = firstName + ' ' + lastName;
+    }
