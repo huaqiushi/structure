@@ -110,3 +110,19 @@ Vue实例
 --------
 
 组件是可复用的Vue实例（每用一次组件，就会有一个新的Vue实例被创建；组件类似于类）
+
+.. code-block:: js
+
+    // 全局注册组件
+    Vue.component('button-counter', {
+      data: function () { return { count: 0 } },
+      template: '<button v-on:click="count++">You clicked me {{ count }} times.</button>'
+    })
+
+    // 此处创建了一个根实例；只有在根实例中才能使用组件
+    new Vue({ el: '#components-demo' })
+
+.. code-block:: html
+
+    <!-- 使用组件 -->
+    <div id="components-demo"><button-counter></button-counter></div>

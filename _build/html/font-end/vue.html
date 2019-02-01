@@ -296,6 +296,20 @@
 <div class="section" id="id5">
 <h2><a class="toc-backref" href="#id12">3.3. 组件</a><a class="headerlink" href="#id5" title="永久链接至标题">¶</a></h2>
 <p>组件是可复用的Vue实例（每用一次组件，就会有一个新的Vue实例被创建；组件类似于类）</p>
+<div class="highlight-js"><div class="highlight"><pre><span class="c1">// 全局注册组件</span>
+<span class="nx">Vue</span><span class="p">.</span><span class="nx">component</span><span class="p">(</span><span class="s1">&#39;button-counter&#39;</span><span class="p">,</span> <span class="p">{</span>
+  <span class="nx">data</span><span class="o">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span> <span class="k">return</span> <span class="p">{</span> <span class="nx">count</span><span class="o">:</span> <span class="mi">0</span> <span class="p">}</span> <span class="p">},</span>
+  <span class="nx">template</span><span class="o">:</span> <span class="s1">&#39;&lt;button v-on:click=&quot;count++&quot;&gt;You clicked me {{ count }} times.&lt;/button&gt;&#39;</span>
+<span class="p">})</span>
+
+<span class="c1">// 此处创建了一个根实例；只有在根实例中才能使用组件</span>
+<span class="k">new</span> <span class="nx">Vue</span><span class="p">({</span> <span class="nx">el</span><span class="o">:</span> <span class="s1">&#39;#components-demo&#39;</span> <span class="p">})</span>
+</pre></div>
+</div>
+<div class="highlight-html"><div class="highlight"><pre><span class="c">&lt;!-- 使用组件 --&gt;</span>
+<span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;components-demo&quot;</span><span class="p">&gt;&lt;</span><span class="nt">button-counter</span><span class="p">&gt;&lt;/</span><span class="nt">button-counter</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</pre></div>
+</div>
 </div>
 </div>
 
