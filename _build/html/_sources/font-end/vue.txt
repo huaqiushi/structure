@@ -126,3 +126,8 @@ Vue实例
 
     <!-- 使用组件 -->
     <div id="components-demo"><button-counter></button-counter></div>
+
+组件的props属性
+'''''''''''''''''''
+
+props是组件的一个属性，当一个值从模板中传递给props中的一个prop特性的时候，它就变成了那个组件实例的一个属性
