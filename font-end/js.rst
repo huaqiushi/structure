@@ -80,3 +80,5 @@ ES6 Module
     function setName(element) {
       element.textContent = firstName + ' ' + lastName;
     }
+
+注：export default用于指定模块的默认输出。本质上，export default就是将模块内的变量或方法赋值给default，然后在import时系统允许你为它取任意名字
