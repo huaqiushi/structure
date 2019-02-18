@@ -36,7 +36,7 @@ nginx+uwsgi+django
 2. 写配置文件
 	- uwsgi配置文件：
 
-        .. :code-block:: python
+        .. code-block:: ini
 
             [uwsgi]
             chdir = /home/huaqiushi/run/running/  # 指向项目地址
@@ -51,6 +51,7 @@ nginx+uwsgi+django
 	- nginx配置文件：
 
         https://blog.csdn.net/shu_8708/article/details/79031328
+
 
 3. 启动uwsgi（路径切换到项目文件夹下）
 	- uwsgi –http 127.0.0.1:8008 –wsgi-file test.py  启动uwsgi加载单个文件
