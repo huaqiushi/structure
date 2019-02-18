@@ -36,22 +36,19 @@ nginx+uwsgi+django
 2. 写配置文件
 	- uwsgi配置文件：
 
-        .. code-block:: ini
+        .. code-block:: python
 
-            [uwsgi]
-            chdir = /home/huaqiushi/run/running/  # 指向项目地址
-            wsgi-file = running/wsgi.py  # 指向项目中的wsgi.py
-            daemonize = /home/huaqiushi/run/running/uwsgi.log
-            socket = 127.0.0.1:8001  # 用8001端口接收socket请求（此处若将socket改成http则可直接用uwsgi接收http请求）
-            stats = 127.0.0.1:9090  # 状态发送至9090窗口
-            processes = 4  # 最大进程是4
-            threads = 2  # 最大线程是2
-            master = true  # 启动主进程
+            # [uwsgi]
+            # chdir = /home/huaqiushi/run/running/  # 指向项目地址
+            # wsgi-file = running/wsgi.py  # 指向项目中的wsgi.py
+            # daemonize = /home/huaqiushi/run/running/uwsgi.log
+            # socket = 127.0.0.1:8001  # 用8001端口接收socket请求（此处若将socket改成http则可直接用uwsgi接收http请求）
+            # stats = 127.0.0.1:9090  # 状态发送至9090窗口
+            # processes = 4  # 最大进程是4
+            # threads = 2  # 最大线程是2
+            # master = true  # 启动主进程
 
-	- nginx配置文件：
-
-        https://blog.csdn.net/shu_8708/article/details/79031328
-
+	- nginx配置文件：https://blog.csdn.net/shu_8708/article/details/79031328
 
 3. 启动uwsgi（路径切换到项目文件夹下）
 	- uwsgi –http 127.0.0.1:8008 –wsgi-file test.py  启动uwsgi加载单个文件
