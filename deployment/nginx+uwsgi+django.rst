@@ -36,7 +36,7 @@ nginx+uwsgi+django
 2. 写配置文件
 	- uwsgi配置文件：
 
-        .. :code-block:: ini
+        .. :code-block:: python
 
             [uwsgi]
             chdir = /home/huaqiushi/run/running/  # 指向项目地址
