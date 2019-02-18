@@ -38,6 +38,8 @@ nginx+uwsgi+django
 
         .. code-block:: python
 
+            # mysite_uwsgi.ini
+
             # [uwsgi]
             # chdir = /home/huaqiushi/run/running/  # 指向项目地址
             # wsgi-file = running/wsgi.py  # 指向项目中的wsgi.py
@@ -49,6 +51,44 @@ nginx+uwsgi+django
             # master = true  # 启动主进程
 
 	- nginx配置文件：https://blog.csdn.net/shu_8708/article/details/79031328
+
+        .. code-block:: python
+
+            # # mysite_nginx.conf
+
+            # # the upstream component nginx needs to connect to
+            # upstream django {
+            #     # server unix:///path/to/your/mysite/mysite.sock; # for a file socket
+                server 127.0.0.1:8001; # for a web port socket (we'll use this first)
+            # }
+
+            # # configuration of the server
+            # server {
+            #     # the port your site will be served on
+            #     listen      8000;
+            #     # the domain name it will serve for
+            #     server_name example.com; # substitute your machine's IP address or FQDN
+            #     charset     utf-8;
+
+            #     # max upload size
+            #     client_max_body_size 75M;   # adjust to taste
+
+            #     # Django media
+            #     location /media  {
+            #         alias /path/to/your/mysite/media;  # your Django project's media files - amend as required
+            #     }
+
+            #     location /static {
+            #         alias /path/to/your/mysite/static; # your Django project's static files - amend as required
+            #     }
+
+            #     # Finally, send all non-media requests to the Django server.
+            #     location / {
+            #         uwsgi_pass  django;
+            #         include     /path/to/your/mysite/uwsgi_params; # the uwsgi_params file you installed
+            #     }
+            # }
+
 
 3. 启动uwsgi（路径切换到项目文件夹下）
 	- uwsgi –http 127.0.0.1:8008 –wsgi-file test.py  启动uwsgi加载单个文件
