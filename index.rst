@@ -15,6 +15,7 @@ Structure
    project/index
    font-end/index
    framework/index
+   deployment/index
    tools/index
    linux/index
 
