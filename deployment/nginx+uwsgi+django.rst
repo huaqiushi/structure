@@ -21,11 +21,11 @@ nginx+uwsgi+django
 - uwsgi：web服务器和web程序之间的一种简单通用的接口，用于将HTTP协议转换为Python可以直接使用的WSGI协议。其包含的wsgi协议使得遵从此协议的web程序可以运行在任何web服务器上；uwsgi协议定义了传输信息的类型
 
 从客户端发起请求到客户端收到响应的完整流程
-1. 浏览器请求
-2. nginx解包分析。如果是静态文件请求就根据nginx配置的静态文件目录返回请求的资源；如果是动态的请求，nginx通过配置文件将请求传递给uWSGI
-3. uWSGI 将接收到的包进行处理，并转发给wsgi
-4. wsgi根据请求调用django的某个view，view处理完后将返回值交给wsgi
-5. wsgi将返回值进行打包，转发给uWSGI，uWSGI接收后转发给nginx，nginx最终将返回值返回给浏览器
+    1. 浏览器请求
+    2. nginx解包分析。如果是静态文件请求就根据nginx配置的静态文件目录返回请求的资源；如果是动态的请求，nginx通过配置文件将请求传递给uWSGI
+    3. uWSGI 将接收到的包进行处理，并转发给wsgi
+    4. wsgi根据请求调用django的某个view，view处理完后将返回值交给wsgi
+    5. wsgi将返回值进行打包，转发给uWSGI，uWSGI接收后转发给nginx，nginx最终将返回值返回给浏览器
 
     - 注：不同的组件之间传递信息涉及到数据格式和协议的转换
 
