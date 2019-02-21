@@ -1,0 +1,341 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>2. nginx+uwsgi+django &mdash; TechNote 1.0.1 文档</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="TechNote 1.0.1 文档" href="../index.html"/>
+        <link rel="up" title="项目部署" href="index.html"/>
+        <link rel="next" title="开发工具" href="../tools/index.html"/>
+        <link rel="prev" title="1. 虚拟环境" href="virtualenv.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> TechNote
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../project/index.html">项目</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../font-end/index.html">前端</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../framework/index.html">框架</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">项目部署</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="virtualenv.html">1. 虚拟环境</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">2. nginx+uwsgi+django</a><ul class="simple">
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../tools/index.html">开发工具</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../linux/index.html">Linux</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">TechNote</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="index.html">项目部署</a> &raquo;</li>
+      
+    <li>2. nginx+uwsgi+django</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/deployment/nginx+uwsgi+django.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="nginx-uwsgi-django">
+<h1>2. nginx+uwsgi+django<a class="headerlink" href="#nginx-uwsgi-django" title="永久链接至标题">¶</a></h1>
+<div class="section" id="nginx">
+<h2>2.1. nginx<a class="headerlink" href="#nginx" title="永久链接至标题">¶</a></h2>
+<ul class="simple">
+<li>反向代理：用于代理服务器，代替服务器接受请求并转发响应</li>
+<li>正向代理：用于代理客户端，代替客户端发送请求并转发响应</li>
+</ul>
+<img alt="../_images/proxy.jpg" src="../_images/proxy.jpg" />
+</div>
+<div class="section" id="uwsgi">
+<h2>2.2. uWSGI<a class="headerlink" href="#uwsgi" title="永久链接至标题">¶</a></h2>
+<p>uWSGI是一个实现了WSGI协议、uwsgi协议、http协议的网关服务器。其会创建Unix套接字，通过uwsgi协议处理从web server传来的客户端的http请求，通过WSGI协议调用执行相应的django应用程序。</p>
+<ul>
+<li><p class="first">WSGI：是一种通信协议，用于接收从web server传来的客户端的http请求，然后调用执行相应的django应用程序。总之，它用于规范web server与web application的通信</p>
+</li>
+<li><p class="first">uwsgi：是一种线路协议，用于规范uWSGI服务器与其它网络服务器的通信（是uWSGI服务器自有的协议）</p>
+<blockquote>
+<div><ul class="simple">
+<li>从前端到后端：the web client &lt;&#8211;http&#8211;&gt; the web server &lt;&#8211;unix socket&#8211;&gt; the uWSGI &lt;&#8212;-&gt; Django application</li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+</div>
+<div class="section" id="id1">
+<h2>2.3. nginx+uwsgi+django<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h2>
+<ul class="simple">
+<li>nginx：处理静态文件；提高并发处理量；对多台uWSGI进行负载均衡；提高安全性</li>
+<li>uwsgi：web服务器和web程序之间的一种简单通用的接口，用于将HTTP协议转换为Python可以直接使用的WSGI协议。其包含的wsgi协议使得遵从此协议的web程序可以运行在任何web服务器上；uwsgi协议定义了传输信息的类型</li>
+</ul>
+<dl class="docutils">
+<dt>从客户端发起请求到客户端收到响应的完整流程</dt>
+<dd><ol class="first arabic simple">
+<li>浏览器请求</li>
+<li>nginx解包分析。如果是静态文件请求就根据nginx配置的静态文件目录返回请求的资源；如果是动态的请求，nginx通过配置文件将请求传递给uWSGI</li>
+<li>uWSGI 将接收到的包进行处理，并转发给wsgi</li>
+<li>wsgi根据请求调用django的某个view，view处理完后将返回值交给wsgi</li>
+<li>wsgi将返回值进行打包，转发给uWSGI，uWSGI接收后转发给nginx，nginx最终将返回值返回给浏览器</li>
+</ol>
+<ul class="last simple">
+<li>注：不同的组件之间传递信息涉及到数据格式和协议的转换</li>
+</ul>
+</dd>
+</dl>
+<div class="section" id="id2">
+<h3>2.3.1. 部署步骤<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h3>
+<ol class="arabic">
+<li><p class="first">安装nginx、uwsgi</p>
+</li>
+<li><dl class="first docutils">
+<dt>写配置文件</dt>
+<dd><ul class="first simple">
+<li>uwsgi配置文件：</li>
+</ul>
+<div class="highlight-python"><div class="highlight"><pre><span class="c1"># mysite_uwsgi.ini</span>
+
+<span class="c1"># [uwsgi]</span>
+<span class="c1"># chdir = /home/huaqiushi/run/running/  # 指向项目地址</span>
+<span class="c1"># wsgi-file = running/wsgi.py  # 指向项目中的wsgi.py</span>
+<span class="c1"># daemonize = /home/huaqiushi/run/running/uwsgi.log</span>
+<span class="c1"># socket = 127.0.0.1:8001  # 用8001端口接收socket请求（此处若将socket改成http则可直接用uwsgi接收http请求）</span>
+<span class="c1"># stats = 127.0.0.1:9090  # 状态发送至9090窗口</span>
+<span class="c1"># processes = 4  # 最大进程是4</span>
+<span class="c1"># threads = 2  # 最大线程是2</span>
+<span class="c1"># master = true  # 启动主进程</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>nginx配置文件：<a class="reference external" href="https://blog.csdn.net/shu_8708/article/details/79031328">https://blog.csdn.net/shu_8708/article/details/79031328</a></li>
+</ul>
+<div class="last highlight-python"><div class="highlight"><pre><span class="c1"># mysite_nginx.conf</span>
+
+<span class="c1"># the upstream component nginx needs to connect to</span>
+<span class="n">upstream</span> <span class="n">django</span> <span class="p">{</span>
+    <span class="c1"># server unix:///path/to/your/mysite/mysite.sock; # for a file socket</span>
+    <span class="n">server</span> <span class="mf">127.0</span><span class="o">.</span><span class="mf">0.1</span><span class="p">:</span><span class="mi">8001</span><span class="p">;</span> <span class="c1"># for a web port socket (we&#39;ll use this first)</span>
+<span class="p">}</span>
+
+<span class="c1"># configuration of the server</span>
+<span class="n">server</span> <span class="p">{</span>
+    <span class="c1"># the port your site will be served on</span>
+    <span class="n">listen</span>      <span class="mi">8000</span><span class="p">;</span>
+    <span class="c1"># the domain name it will serve for</span>
+    <span class="n">server_name</span> <span class="n">example</span><span class="o">.</span><span class="n">com</span><span class="p">;</span> <span class="c1"># substitute your machine&#39;s IP address or FQDN</span>
+    <span class="n">charset</span>     <span class="n">utf</span><span class="o">-</span><span class="mi">8</span><span class="p">;</span>
+
+    <span class="c1"># max upload size</span>
+    <span class="n">client_max_body_size</span> <span class="mi">75</span><span class="n">M</span><span class="p">;</span>   <span class="c1"># adjust to taste</span>
+
+    <span class="c1"># Django media</span>
+    <span class="n">location</span> <span class="o">/</span><span class="n">media</span>  <span class="p">{</span>
+        <span class="n">alias</span> <span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">your</span><span class="o">/</span><span class="n">mysite</span><span class="o">/</span><span class="n">media</span><span class="p">;</span>  <span class="c1"># your Django project&#39;s media files - amend as required</span>
+    <span class="p">}</span>
+
+    <span class="n">location</span> <span class="o">/</span><span class="n">static</span> <span class="p">{</span>
+        <span class="n">alias</span> <span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">your</span><span class="o">/</span><span class="n">mysite</span><span class="o">/</span><span class="n">static</span><span class="p">;</span> <span class="c1"># your Django project&#39;s static files - amend as required</span>
+    <span class="p">}</span>
+
+    <span class="c1"># Finally, send all non-media requests to the Django server.</span>
+    <span class="n">location</span> <span class="o">/</span> <span class="p">{</span>
+        <span class="n">uwsgi_pass</span>  <span class="n">django</span><span class="p">;</span>
+        <span class="n">include</span>     <span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">your</span><span class="o">/</span><span class="n">mysite</span><span class="o">/</span><span class="n">uwsgi_params</span><span class="p">;</span> <span class="c1"># the uwsgi_params file you installed</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>启动uwsgi（路径切换到项目文件夹下）</dt>
+<dd><ul class="first last simple">
+<li>uwsgi –http 127.0.0.1:8008 –wsgi-file test.py  启动uwsgi加载单个文件</li>
+<li>uwsgi –http 127.0.0.1:8008 –module proj.wsgi  启动uwsgi加载django项目</li>
+<li>uwsgi –ini uwsgi.ini  启动uwsgi加载django项目（用uwsgi配置文件启动）</li>
+</ul>
+</dd>
+</dl>
+</li>
+</ol>
+<ul class="simple">
+<li>django中静态文件（css、js、img）的管理：python manage.py collectstatic——将所有应用的static文件夹中的静态文件拷贝到项目的static文件夹（即STATIC_ROOT）中</li>
+</ul>
+</div>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../tools/index.html" class="btn btn-neutral float-right" title="开发工具" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="virtualenv.html" class="btn btn-neutral" title="1. 虚拟环境" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; 版权所有 2019, Tony Hua.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'1.0.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="../_static/translations.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>
