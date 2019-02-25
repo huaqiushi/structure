@@ -18,6 +18,7 @@ Structure
    deployment/index
    tools/index
    linux/index
+   logic/index
 
 * :ref:`genindex`
 * :ref:`modindex`
