@@ -30,6 +30,6 @@ git中的文件的三种状态
 
 .. code-block:: shell
 
-$ git rm --cached README
+    $ git rm --cached README
 
-注：在本地仓库添加.gitignore 文件也可以实现
+注：在本地仓库添加.gitignore文件可以匹配之后添加的文件，使其不被追踪
