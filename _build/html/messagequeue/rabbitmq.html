@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>1. CSS &mdash; TechNote 1.0.1 文档</title>
+  <title>1. RabbitMQ &mdash; TechNote 1.0.1 文档</title>
   
 
   
@@ -31,9 +31,9 @@
 
   
     <link rel="top" title="TechNote 1.0.1 文档" href="../index.html"/>
-        <link rel="up" title="前端" href="index.html"/>
-        <link rel="next" title="2. JS" href="js.html"/>
-        <link rel="prev" title="前端" href="index.html"/> 
+        <link rel="up" title="消息队列" href="index.html"/>
+        <link rel="next" title="项目部署" href="../deployment/index.html"/>
+        <link rel="prev" title="消息队列" href="index.html"/> 
 
   
   <script src="../_static/js/modernizr.min.js"></script>
@@ -84,17 +84,16 @@
             
                 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../project/index.html">项目</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="index.html">前端</a><ul class="current">
-<li class="toctree-l2 current"><a class="current reference internal" href="">1. CSS</a><ul class="simple">
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="js.html">2. JS</a></li>
-<li class="toctree-l2"><a class="reference internal" href="vue.html">3. Vue</a></li>
-</ul>
-</li>
 <li class="toctree-l1"><a class="reference internal" href="../framework/index.html">框架</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">消息队列</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="">1. RabbitMQ</a><ul class="simple">
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="../deployment/index.html">项目部署</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../tools/index.html">开发工具</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../fontend/index.html">前端</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../linux/index.html">Linux</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../logic/index.html">逻辑</a></li>
 </ul>
@@ -127,13 +126,13 @@
   <ul class="wy-breadcrumbs">
     <li><a href="../index.html">Docs</a> &raquo;</li>
       
-          <li><a href="index.html">前端</a> &raquo;</li>
+          <li><a href="index.html">消息队列</a> &raquo;</li>
       
-    <li>1. CSS</li>
+    <li>1. RabbitMQ</li>
       <li class="wy-breadcrumbs-aside">
         
           
-            <a href="../_sources/font-end/css.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/messagequeue/rabbitmq.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -143,20 +142,28 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="css">
-<h1>1. CSS<a class="headerlink" href="#css" title="永久链接至标题">¶</a></h1>
-<p>less和sass均是css预处理器，即将带有变量、嵌套、混入、继承等编程语法的css文件解析为常规的css文件。</p>
-<ul class="simple">
-<li>css不是编程语言，而sass是</li>
-<li><strong>css编程化</strong> 和 <strong>js模块化</strong> 均是前端代码越来越庞大、复杂的情况下对常规css和js的编程化改进</li>
-</ul>
-<div class="section" id="less">
-<h2>1.1. less<a class="headerlink" href="#less" title="永久链接至标题">¶</a></h2>
-<p>Leaner Style Sheets。在css的基础上增加了变量、嵌套、混入、继承等语法</p>
+  <div class="section" id="rabbitmq">
+<h1>1. RabbitMQ<a class="headerlink" href="#rabbitmq" title="永久链接至标题">¶</a></h1>
+<p>将消息通过队列分发给消费者</p>
+<div class="section" id="id1">
+<h2>1.1. 分发方式<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h2>
+<div class="section" id="round-robin-dispatching">
+<h3>1.1.1. round-robin dispatching<a class="headerlink" href="#round-robin-dispatching" title="永久链接至标题">¶</a></h3>
+<p>默认的分发方式。有多个消费者时，RabbitMQ将消息循环分发给每个消费者
+fair dispatch
+&#8216;&#8217;&#8216;&#8217;&#8216;&#8217;&#8216;&#8217;&#8216;&#8217;&#8216;&#8217;&#8216;&#8217;&#8216;&#8217;&#8216;&#8217;
+为了均衡地使用消费者——保证每个消费者只有一个正在处理的消息，channel.basic_qos(prefetch_count=1)</p>
 </div>
-<div class="section" id="sass">
-<h2>1.2. sass<a class="headerlink" href="#sass" title="永久链接至标题">¶</a></h2>
-<p>Syntactically Awesome Stylesheets。在less的基础上增加了条件、循环等语句</p>
+</div>
+<div class="section" id="id2">
+<h2>1.2. 异常处理<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
+<div class="section" id="message-acknowledge">
+<h3>1.2.1. 消费者异常——message acknowledge<a class="headerlink" href="#message-acknowledge" title="永久链接至标题">¶</a></h3>
+<p>消费者处理消息时死亡会导致消息丢失——消费者完成任务后，发送确认信息给生产者，ch.basic_ack(delivery_tag = method.delivery_tag)
+RabbitMQ异常——message durability
+&#8216;&#8217;&#8216;&#8217;&#8216;&#8217;&#8216;&#8217;&#8216;&#8217;&#8216;&#8217;&#8216;&#8217;&#8216;&#8217;&#8216;&#8217;&#8216;&#8217;&#8216;&#8217;&#8216;&#8217;&#8216;&#8217;&#8216;&#8217;&#8216;&#8217;&#8216;&#8217;&#8216;&#8217;&#8216;&#8217;&#8216;&#8217;
+RabbitMQ退出或崩溃时会导致队列和消息丢失——声明队列时传入durable=True、发布消息时传入delivery_mode=2</p>
+</div>
 </div>
 </div>
 
@@ -167,10 +174,10 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="js.html" class="btn btn-neutral float-right" title="2. JS" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="../deployment/index.html" class="btn btn-neutral float-right" title="项目部署" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="index.html" class="btn btn-neutral" title="前端" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="index.html" class="btn btn-neutral" title="消息队列" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
