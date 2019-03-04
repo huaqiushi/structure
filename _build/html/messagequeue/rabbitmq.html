@@ -144,12 +144,45 @@
             
   <div class="section" id="rabbitmq">
 <h1>1. RabbitMQ<a class="headerlink" href="#rabbitmq" title="永久链接至标题">¶</a></h1>
-<p>将消息通过队列分发给消费者</p>
+<img alt="../_images/RabbitMQ.JPG" src="../_images/RabbitMQ.JPG" />
+<p>将消息通过队列分发给消费者。</p>
+<ul>
+<li><p class="first">producer：发送消息给exchange</p>
+</li>
+<li><p class="first">exchange：接收生产者的消息并以一定方式分发到队列中。有四种类型：direct, topic, headers, fanout</p>
+<blockquote>
+<div><ul>
+<li><p class="first">fanout：分发给每个消费者</p>
+</li>
+<li><p class="first">direct：通过两个routing_key之间的匹配关系进行分发（生产者发布消息时的routing_key、队列绑定交换机时的routing_key）</p>
+<blockquote>
+<div><ul class="simple">
+<li>routing_key：&#8217;orange&#8217;</li>
+</ul>
+</div></blockquote>
+</li>
+<li><p class="first">topic：与direct相比，routing_key变为多个属性</p>
+<blockquote>
+<div><ul class="simple">
+<li>routing_key：&#8217;<em>.orange.</em>&#8216;, &#8216;<em>.</em>.rabbit&#8217;, &#8216;lazy.#&#8217;</li>
+</ul>
+</div></blockquote>
+</li>
+<li><p class="first">headers：</p>
+</li>
+</ul>
+</div></blockquote>
+</li>
+<li><p class="first">queue：存储消息（和交换机绑定以存储需要的信息）</p>
+</li>
+<li><p class="first">consumer：从某一个队列中获取消息并处理</p>
+</li>
+</ul>
 <div class="section" id="id1">
 <h2>1.1. 分发方式<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h2>
 <div class="section" id="round-robin-dispatching">
 <h3>1.1.1. round-robin dispatching<a class="headerlink" href="#round-robin-dispatching" title="永久链接至标题">¶</a></h3>
-<p>默认的分发方式。有多个消费者时，RabbitMQ将消息循环分发给每个消费者</p>
+<p>默认的分发方式。有多个消费者时，RabbitMQ将队列中的消息循环分发给每个消费者</p>
 </div>
 <div class="section" id="fair-dispatch">
 <h3>1.1.2. fair dispatch<a class="headerlink" href="#fair-dispatch" title="永久链接至标题">¶</a></h3>

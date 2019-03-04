@@ -1,13 +1,32 @@
 RabbitMQ
 =============
 
-将消息通过队列分发给消费者
+.. image:: ../.img/RabbitMQ.JPG
+
+将消息通过队列分发给消费者。
+
+- producer：发送消息给exchange
+- exchange：接收生产者的消息并以一定方式分发到队列中。有四种类型：direct, topic, headers, fanout
+
+    - fanout：分发给每个消费者
+    - direct：通过两个routing_key之间的匹配关系进行分发（生产者发布消息时的routing_key、队列绑定交换机时的routing_key）
+
+        - routing_key：'orange'
+
+    - topic：与direct相比，routing_key变为多个属性
+
+        - routing_key：'*.orange.*', '*.*.rabbit', 'lazy.#'
+
+    - headers：
+
+- queue：存储消息（和交换机绑定以存储需要的信息）
+- consumer：从某一个队列中获取消息并处理
 
 分发方式
 -----------
 round-robin dispatching
 ''''''''''''''''''''''''''''
-默认的分发方式。有多个消费者时，RabbitMQ将消息循环分发给每个消费者
+默认的分发方式。有多个消费者时，RabbitMQ将队列中的消息循环分发给每个消费者
 
 fair dispatch
 ''''''''''''''''''
