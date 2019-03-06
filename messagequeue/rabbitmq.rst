@@ -16,7 +16,7 @@ RabbitMQ
 
     - topic：与direct相比，routing_key变为多个属性
 
-        - 例：routing_key：' * .orange. * ', ' * . * .rabbit', 'lazy.#'
+        - 例：routing_key： ' * .orange. * ', ' * . * .rabbit', 'lazy.#'
 
     - headers：很少使用
 

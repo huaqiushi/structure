@@ -16,9 +16,9 @@ RabbitMQ
 
     - topic：与direct相比，routing_key变为多个属性
 
-        - 例：routing_key：' * .orange. * ', ' * . * .rabbit', 'lazy.#'
+        - 例：routing_key： ' * .orange. * ', ' * . * .rabbit', 'lazy.#'
 
-    - headers：
+    - headers：很少使用
 
 - queue：存储消息（和交换机绑定以存储需要的信息）
 - consumer：从某一个队列中获取消息并处理
@@ -37,7 +37,7 @@ channel
 
 virtual host
 '''''''''''''''''
-一个broker server可以托管多个隔离的AMQP环境，每一个AMQP环境即一个virtual host
+一个broker server可以创建多个隔离的AMQP环境（拥有自己的队列、绑定和交换机），每一个AMQP环境即一个virtual host
 
 分发方式
 -----------
