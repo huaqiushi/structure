@@ -6,3 +6,4 @@ Linux
     :numbered:
 
     deployment
+    others
