@@ -89,6 +89,7 @@ nginx+uwsgi+django
 
     - nginx：在/etc/nginx/sites-available中添加配置文件，在/etc/nginx/sites-enabled中添加对配置文件的符号链接
 
+
     1. 反向代理（示例）
 
     .. code-block:: nginx
@@ -173,8 +174,8 @@ nginx+uwsgi+django
 
 4. 收集静态文件
 
-    - 在项目的settings文件中添加：STATIC_ROOT = '/home/huaqiushi/Desktop/UniversalPlugin/static/'
+    a. 在项目的settings文件中添加：STATIC_ROOT = '/home/huaqiushi/Desktop/UniversalPlugin/static/'
 
         - 注：STATIC_ROOT的作用是定义静态文件最终存放的文件夹；当静态文件收集完毕后，其将由nginx中定义的“location /static”去查找
 
-    - 在终端运行：python manage.py collectstatic ——将所有应用的static文件夹中的静态文件拷贝到项目的static文件夹（即STATIC_ROOT）中
+    b. 在终端运行：python manage.py collectstatic ——将所有应用的static文件夹中的静态文件拷贝到项目的static文件夹（即STATIC_ROOT）中
