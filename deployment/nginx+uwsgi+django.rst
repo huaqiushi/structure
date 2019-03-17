@@ -23,6 +23,8 @@ uWSGI是一个实现了WSGI协议、uwsgi协议、http协议的网关服务器�
 nginx+uwsgi+django
 ------------------------
 
+.. image:: ../.img/deploy.JPG
+
 - nginx：处理静态文件；提高并发处理量；对多台uWSGI进行负载均衡；提高安全性
 - uwsgi：web服务器和web程序之间的一种简单通用的接口，用于将HTTP协议转换为Python可以直接使用的WSGI协议。其包含的wsgi协议使得遵从此协议的web程序可以运行在任何web服务器上；uwsgi协议定义了传输信息的类型
 
@@ -38,67 +40,141 @@ nginx+uwsgi+django
 部署步骤
 ''''''''''
 
-1. 安装nginx、uwsgi
-2. 写配置文件
-	- uwsgi配置文件：
+1. 安装
+    - nginx：apt-get install nginx
+    - uwsgi：pip install uwsgi
 
-        .. code-block:: python
+2. 配置
 
-            # mysite_uwsgi.ini
+    - uwsgi：在项目根目录下创建uwsgi/uwsgi.ini文件
 
-            # [uwsgi]
-            # chdir = /home/huaqiushi/run/running/  # 指向项目地址
-            # wsgi-file = running/wsgi.py  # 指向项目中的wsgi.py
-            # daemonize = /home/huaqiushi/run/running/uwsgi.log
-            # socket = 127.0.0.1:8001  # 用8001端口接收socket请求（此处若将socket改成http则可直接用uwsgi接收http请求）
-            # stats = 127.0.0.1:9090  # 状态发送至9090窗口
-            # processes = 4  # 最大进程是4
-            # threads = 2  # 最大线程是2
-            # master = true  # 启动主进程
+    .. code-block:: ini
 
-	- nginx配置文件：https://blog.csdn.net/shu_8708/article/details/79031328
+        # uwsgi.ini
 
-        .. code-block:: python
+        [uwsgi]
 
-            # mysite_nginx.conf
+        # 项目文件的地址
+        chdir      = /home/huaqiushi/Desktop/UniversalPlugin
 
-            # the upstream component nginx needs to connect to
-            upstream django {
-                # server unix:///path/to/your/mysite/mysite.sock; # for a file socket
-                server 127.0.0.1:8001; # for a web port socket (we'll use this first)
+        # 要使用的wsgi模块
+        module     = UniversalPlugin.wsgi:application
+
+
+        # 开启的进程（也称为worker）数量
+        processes  = 4
+
+        # 开启的线程数量
+        threads    = 2
+
+        # 开启主进程
+        master     = True
+
+
+        # 8000端口接收来自nginx的socket请求（此处若将socket改成http则可直接用uwsgi接收来自用户的http请求）
+        socket     = 127.0.0.1:8000
+
+        # 在指定的地址上开启状态服务
+        stats      = 127.0.0.1:8080
+
+        # 使进程在后台运行，并将日志输出到指定的文件
+        daemonize  = /home/huaqiushi/Desktop/UniversalPlugin/uwsgi/uwsgi.log
+
+        # 将主进程的pid记录到指定的文件中
+        pidfile    = /home/huaqiushi/Desktop/UniversalPlugin/uwsgi/master.pid
+
+        # 退出时清理环境——删除unix socket文件和pid文件
+        vacuum     = True
+
+
+    - nginx：在/etc/nginx/sites-available中添加配置文件，在/etc/nginx/sites-enabled中添加对配置文件的符号链接
+
+    1. 反向代理（示例）
+
+    .. code-block:: nginx
+
+        server {
+            listen       80;
+            server_name  domain2.com www.domain2.com;
+            access_log   logs/domain2.access.log  main;
+
+            # serve static files
+            location ~ ^/(images|javascript|js|css|flash|media|static)/  {
+              root    /var/www/virtual/big.server.com/htdocs;
+              expires 30d;
             }
 
-            # configuration of the server
-            server {
-                # the port your site will be served on
-                listen      8000;
-                # the domain name it will serve for
-                server_name example.com; # substitute your machine's IP address or FQDN
-                charset     utf-8;
+            # pass requests for dynamic content to rails/turbogears/zope, et al
+            location / {
+              proxy_pass      http://127.0.0.1:8080;
+            }
+        }
 
-                # max upload size
-                client_max_body_size 75M;   # adjust to taste
+    2. 负载均衡（示例）
 
-                # Django media
-                location /media  {
-                    alias /path/to/your/mysite/media;  # your Django project's media files - amend as required
-                }
+    .. code-block:: nginx
 
-                location /static {
-                    alias /path/to/your/mysite/static; # your Django project's static files - amend as required
-                }
+        upstream big_server_com {
+            server 127.0.0.3:8000 weight=5;
+            server 127.0.0.3:8001 weight=5;
+            server 192.168.0.1:8000;
+            server 192.168.0.1:8001;
+        }
 
-                # Finally, send all non-media requests to the Django server.
-                location / {
-                    uwsgi_pass  django;
-                    include     /path/to/your/mysite/uwsgi_params; # the uwsgi_params file you installed
-                }
+        server {
+            listen          80;
+            server_name     big.server.com;
+            access_log      logs/big.server.access.log main;
+
+            location / {
+              proxy_pass      http://big_server_com;
+            }
+        }
+
+
+    3. 完整的配置（经过实践确认）
+
+        /etc/nginx/下有四个关于nginx的配置文件：
+
+            - nginx.conf：nginx的主配置文件（除过sever和upstream的配置；这两者定义在sites-enabled中）
+            - conf.d：没有用到（作用未知）
+            - sites-enabled：对要启用的server的符号链接
+            - sites-available：一系列的server（以备在sites-enabled中启用）
+
+    .. code-block:: nginx
+
+        upstream django {
+            server 127.0.0.1:8000;
+        }
+
+        server {
+            listen       80;
+            server_name  dolphin.com;
+            charset      utf-8;
+
+            client_max_body_size 75M;
+
+            location /static {
+                alias /home/huaqiushi/Desktop/UniversalPlugin/static;
             }
 
+            location / {
+                uwsgi_pass  django;  # django是在upstream中自定义的名称
+                include     uwsgi_params;
+            }
+        }
 
-3. 启动uwsgi（路径切换到项目文件夹下）
-	- uwsgi –http 127.0.0.1:8008 –wsgi-file test.py  启动uwsgi加载单个文件
-	- uwsgi –http 127.0.0.1:8008 –module proj.wsgi  启动uwsgi加载django项目
-	- uwsgi –ini uwsgi.ini  启动uwsgi加载django项目（用uwsgi配置文件启动）
 
-- django中静态文件（css、js、img）的管理：python manage.py collectstatic——将所有应用的static文件夹中的静态文件拷贝到项目的static文件夹（即STATIC_ROOT）中
+3. 启动
+
+    - uwsgi：uwsgi --ini /home/huaqiushi/Desktop/UniversalPlugin/uwsgi/uwsgi.ini
+    - nginx：service nginx start
+
+
+4. 收集静态文件
+
+    - 在项目的settings文件中添加：STATIC_ROOT = '/home/huaqiushi/Desktop/UniversalPlugin/static/'
+
+        - 注：STATIC_ROOT的作用是定义静态文件最终存放的文件夹；当静态文件收集完毕后，其将由nginx中定义的“location /static”去查找
+
+    - 在终端运行：python manage.py collectstatic ——将所有应用的static文件夹中的静态文件拷贝到项目的static文件夹（即STATIC_ROOT）中

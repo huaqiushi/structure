@@ -34,6 +34,7 @@
 - 19-03-14
 
     - linux：创建符号链接。配置nginx时，在/etc/nginx/site-available/中创建配置文件，在/etc/nginx/site-enabled/中对要启用的配置文件创建符号链接
+
         1. 进入到要创建符号链接的文件夹下
         2. sudo ln -s  指向的源文件地址  符号链接的名称
 

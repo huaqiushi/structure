@@ -97,6 +97,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../fontend/index.html">前端</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../linux/index.html">Linux</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../logic/index.html">逻辑</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reminder/index.html">备忘录</a></li>
 </ul>
 
             
@@ -170,6 +171,7 @@
 </div>
 <div class="section" id="id1">
 <h2>2.3. nginx+uwsgi+django<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h2>
+<img alt="../_images/deploy.JPG" src="../_images/deploy.JPG" />
 <ul class="simple">
 <li>nginx：处理静态文件；提高并发处理量；对多台uWSGI进行负载均衡；提高安全性</li>
 <li>uwsgi：web服务器和web程序之间的一种简单通用的接口，用于将HTTP协议转换为Python可以直接使用的WSGI协议。其包含的wsgi协议使得遵从此协议的web程序可以运行在任何web服务器上；uwsgi协议定义了传输信息的类型</li>
@@ -191,82 +193,165 @@
 <div class="section" id="id2">
 <h3>2.3.1. 部署步骤<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h3>
 <ol class="arabic">
-<li><p class="first">安装nginx、uwsgi</p>
-</li>
 <li><dl class="first docutils">
-<dt>写配置文件</dt>
-<dd><ul class="first simple">
-<li>uwsgi配置文件：</li>
+<dt>安装</dt>
+<dd><ul class="first last simple">
+<li>nginx：apt-get install nginx</li>
+<li>uwsgi：pip install uwsgi</li>
 </ul>
-<div class="highlight-python"><div class="highlight"><pre><span class="c1"># mysite_uwsgi.ini</span>
+</dd>
+</dl>
+</li>
+<li><p class="first">配置</p>
+<blockquote>
+<div><ul class="simple">
+<li>uwsgi：在项目根目录下创建uwsgi/uwsgi.ini文件</li>
+</ul>
+<div class="highlight-ini"><div class="highlight"><pre><span class="c1"># uwsgi.ini</span>
 
-<span class="c1"># [uwsgi]</span>
-<span class="c1"># chdir = /home/huaqiushi/run/running/  # 指向项目地址</span>
-<span class="c1"># wsgi-file = running/wsgi.py  # 指向项目中的wsgi.py</span>
-<span class="c1"># daemonize = /home/huaqiushi/run/running/uwsgi.log</span>
-<span class="c1"># socket = 127.0.0.1:8001  # 用8001端口接收socket请求（此处若将socket改成http则可直接用uwsgi接收http请求）</span>
-<span class="c1"># stats = 127.0.0.1:9090  # 状态发送至9090窗口</span>
-<span class="c1"># processes = 4  # 最大进程是4</span>
-<span class="c1"># threads = 2  # 最大线程是2</span>
-<span class="c1"># master = true  # 启动主进程</span>
+<span class="k">[uwsgi]</span>
+
+<span class="c1"># 项目文件的地址</span>
+<span class="na">chdir</span>      <span class="o">=</span> <span class="s">/home/huaqiushi/Desktop/UniversalPlugin</span>
+
+<span class="c1"># 要使用的wsgi模块</span>
+<span class="na">module</span>     <span class="o">=</span> <span class="s">UniversalPlugin.wsgi:application</span>
+
+
+<span class="c1"># 开启的进程（也称为worker）数量</span>
+<span class="na">processes</span>  <span class="o">=</span> <span class="s">4</span>
+
+<span class="c1"># 开启的线程数量</span>
+<span class="na">threads</span>    <span class="o">=</span> <span class="s">2</span>
+
+<span class="c1"># 开启主进程</span>
+<span class="na">master</span>     <span class="o">=</span> <span class="s">True</span>
+
+
+<span class="c1"># 8000端口接收来自nginx的socket请求（此处若将socket改成http则可直接用uwsgi接收来自用户的http请求）</span>
+<span class="na">socket</span>     <span class="o">=</span> <span class="s">127.0.0.1:8000</span>
+
+<span class="c1"># 在指定的地址上开启状态服务</span>
+<span class="na">stats</span>      <span class="o">=</span> <span class="s">127.0.0.1:8080</span>
+
+<span class="c1"># 使进程在后台运行，并将日志输出到指定的文件</span>
+<span class="na">daemonize</span>  <span class="o">=</span> <span class="s">/home/huaqiushi/Desktop/UniversalPlugin/uwsgi/uwsgi.log</span>
+
+<span class="c1"># 将主进程的pid记录到指定的文件中</span>
+<span class="na">pidfile</span>    <span class="o">=</span> <span class="s">/home/huaqiushi/Desktop/UniversalPlugin/uwsgi/master.pid</span>
+
+<span class="c1"># 退出时清理环境——删除unix socket文件和pid文件</span>
+<span class="na">vacuum</span>     <span class="o">=</span> <span class="s">True</span>
 </pre></div>
 </div>
 <ul class="simple">
-<li>nginx配置文件：<a class="reference external" href="https://blog.csdn.net/shu_8708/article/details/79031328">https://blog.csdn.net/shu_8708/article/details/79031328</a></li>
+<li>nginx：在/etc/nginx/sites-available中添加配置文件，在/etc/nginx/sites-enabled中添加对配置文件的符号链接</li>
 </ul>
-<div class="last highlight-python"><div class="highlight"><pre><span class="c1"># mysite_nginx.conf</span>
+<ol class="arabic simple">
+<li>反向代理（示例）</li>
+</ol>
+<div class="highlight-nginx"><div class="highlight"><pre><span class="k">server</span> <span class="p">{</span>
+    <span class="kn">listen</span>       <span class="mi">80</span><span class="p">;</span>
+    <span class="kn">server_name</span>  <span class="s">domain2.com</span> <span class="s">www.domain2.com</span><span class="p">;</span>
+    <span class="kn">access_log</span>   <span class="s">logs/domain</span><span class="mi">2</span><span class="s">.access.log</span>  <span class="s">main</span><span class="p">;</span>
 
-<span class="c1"># the upstream component nginx needs to connect to</span>
-<span class="n">upstream</span> <span class="n">django</span> <span class="p">{</span>
-    <span class="c1"># server unix:///path/to/your/mysite/mysite.sock; # for a file socket</span>
-    <span class="n">server</span> <span class="mf">127.0</span><span class="o">.</span><span class="mf">0.1</span><span class="p">:</span><span class="mi">8001</span><span class="p">;</span> <span class="c1"># for a web port socket (we&#39;ll use this first)</span>
-<span class="p">}</span>
-
-<span class="c1"># configuration of the server</span>
-<span class="n">server</span> <span class="p">{</span>
-    <span class="c1"># the port your site will be served on</span>
-    <span class="n">listen</span>      <span class="mi">8000</span><span class="p">;</span>
-    <span class="c1"># the domain name it will serve for</span>
-    <span class="n">server_name</span> <span class="n">example</span><span class="o">.</span><span class="n">com</span><span class="p">;</span> <span class="c1"># substitute your machine&#39;s IP address or FQDN</span>
-    <span class="n">charset</span>     <span class="n">utf</span><span class="o">-</span><span class="mi">8</span><span class="p">;</span>
-
-    <span class="c1"># max upload size</span>
-    <span class="n">client_max_body_size</span> <span class="mi">75</span><span class="n">M</span><span class="p">;</span>   <span class="c1"># adjust to taste</span>
-
-    <span class="c1"># Django media</span>
-    <span class="n">location</span> <span class="o">/</span><span class="n">media</span>  <span class="p">{</span>
-        <span class="n">alias</span> <span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">your</span><span class="o">/</span><span class="n">mysite</span><span class="o">/</span><span class="n">media</span><span class="p">;</span>  <span class="c1"># your Django project&#39;s media files - amend as required</span>
+    <span class="c1"># serve static files</span>
+    <span class="kn">location</span> <span class="p">~</span> <span class="sr">^/(images|javascript|js|css|flash|media|static)/</span>  <span class="p">{</span>
+      <span class="kn">root</span>    <span class="s">/var/www/virtual/big.server.com/htdocs</span><span class="p">;</span>
+      <span class="kn">expires</span> <span class="s">30d</span><span class="p">;</span>
     <span class="p">}</span>
 
-    <span class="n">location</span> <span class="o">/</span><span class="n">static</span> <span class="p">{</span>
-        <span class="n">alias</span> <span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">your</span><span class="o">/</span><span class="n">mysite</span><span class="o">/</span><span class="n">static</span><span class="p">;</span> <span class="c1"># your Django project&#39;s static files - amend as required</span>
-    <span class="p">}</span>
-
-    <span class="c1"># Finally, send all non-media requests to the Django server.</span>
-    <span class="n">location</span> <span class="o">/</span> <span class="p">{</span>
-        <span class="n">uwsgi_pass</span>  <span class="n">django</span><span class="p">;</span>
-        <span class="n">include</span>     <span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">your</span><span class="o">/</span><span class="n">mysite</span><span class="o">/</span><span class="n">uwsgi_params</span><span class="p">;</span> <span class="c1"># the uwsgi_params file you installed</span>
+    <span class="c1"># pass requests for dynamic content to rails/turbogears/zope, et al</span>
+    <span class="kn">location</span> <span class="s">/</span> <span class="p">{</span>
+      <span class="kn">proxy_pass</span>      <span class="s">http://127.0.0.1:8080</span><span class="p">;</span>
     <span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
 </div>
-</dd>
-</dl>
-</li>
-<li><dl class="first docutils">
-<dt>启动uwsgi（路径切换到项目文件夹下）</dt>
-<dd><ul class="first last simple">
-<li>uwsgi –http 127.0.0.1:8008 –wsgi-file test.py  启动uwsgi加载单个文件</li>
-<li>uwsgi –http 127.0.0.1:8008 –module proj.wsgi  启动uwsgi加载django项目</li>
-<li>uwsgi –ini uwsgi.ini  启动uwsgi加载django项目（用uwsgi配置文件启动）</li>
+<ol class="arabic simple" start="2">
+<li>负载均衡（示例）</li>
+</ol>
+<div class="highlight-nginx"><div class="highlight"><pre><span class="k">upstream</span> <span class="s">big_server_com</span> <span class="p">{</span>
+    <span class="kn">server</span> <span class="n">127.0.0.3</span><span class="p">:</span><span class="mi">8000</span> <span class="s">weight=5</span><span class="p">;</span>
+    <span class="kn">server</span> <span class="n">127.0.0.3</span><span class="p">:</span><span class="mi">8001</span> <span class="s">weight=5</span><span class="p">;</span>
+    <span class="kn">server</span> <span class="n">192.168.0.1</span><span class="p">:</span><span class="mi">8000</span><span class="p">;</span>
+    <span class="kn">server</span> <span class="n">192.168.0.1</span><span class="p">:</span><span class="mi">8001</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">server</span> <span class="p">{</span>
+    <span class="kn">listen</span>          <span class="mi">80</span><span class="p">;</span>
+    <span class="kn">server_name</span>     <span class="s">big.server.com</span><span class="p">;</span>
+    <span class="kn">access_log</span>      <span class="s">logs/big.server.access.log</span> <span class="s">main</span><span class="p">;</span>
+
+    <span class="kn">location</span> <span class="s">/</span> <span class="p">{</span>
+      <span class="kn">proxy_pass</span>      <span class="s">http://big_server_com</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<ol class="arabic" start="3">
+<li><p class="first">完整的配置（经过实践确认）</p>
+<blockquote>
+<div><p>/etc/nginx/下有四个关于nginx的配置文件：</p>
+<blockquote>
+<div><ul class="simple">
+<li>nginx.conf：nginx的主配置文件（除过sever和upstream的配置；这两者定义在sites-enabled中）</li>
+<li>conf.d：没有用到（作用未知）</li>
+<li>sites-enabled：对要启用的server的符号链接</li>
+<li>sites-available：一系列的server（以备在sites-enabled中启用）</li>
 </ul>
-</dd>
-</dl>
+</div></blockquote>
+</div></blockquote>
 </li>
 </ol>
-<ul class="simple">
-<li>django中静态文件（css、js、img）的管理：python manage.py collectstatic——将所有应用的static文件夹中的静态文件拷贝到项目的static文件夹（即STATIC_ROOT）中</li>
+<div class="highlight-nginx"><div class="highlight"><pre><span class="k">upstream</span> <span class="s">django</span> <span class="p">{</span>
+    <span class="kn">server</span> <span class="n">127.0.0.1</span><span class="p">:</span><span class="mi">8000</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">server</span> <span class="p">{</span>
+    <span class="kn">listen</span>       <span class="mi">80</span><span class="p">;</span>
+    <span class="kn">server_name</span>  <span class="s">dolphin.com</span><span class="p">;</span>
+    <span class="kn">charset</span>      <span class="s">utf-8</span><span class="p">;</span>
+
+    <span class="kn">client_max_body_size</span> <span class="s">75M</span><span class="p">;</span>
+
+    <span class="kn">location</span> <span class="s">/static</span> <span class="p">{</span>
+        <span class="kn">alias</span> <span class="s">/home/huaqiushi/Desktop/UniversalPlugin/static</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="kn">location</span> <span class="s">/</span> <span class="p">{</span>
+        <span class="kn">uwsgi_pass</span>  <span class="s">django</span><span class="p">;</span>  <span class="c1"># django是在upstream中自定义的名称</span>
+        <span class="kn">include</span>     <span class="s">uwsgi_params</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p class="first">启动</p>
+<blockquote>
+<div><ul class="simple">
+<li>uwsgi：uwsgi &#8211;ini /home/huaqiushi/Desktop/UniversalPlugin/uwsgi/uwsgi.ini</li>
+<li>nginx：service nginx start</li>
 </ul>
+</div></blockquote>
+</li>
+<li><p class="first">收集静态文件</p>
+<blockquote>
+<div><ul>
+<li><p class="first">在项目的settings文件中添加：STATIC_ROOT = &#8216;/home/huaqiushi/Desktop/UniversalPlugin/static/&#8217;</p>
+<blockquote>
+<div><ul class="simple">
+<li>注：STATIC_ROOT的作用是定义静态文件最终存放的文件夹；当静态文件收集完毕后，其将由nginx中定义的“location /static”去查找</li>
+</ul>
+</div></blockquote>
+</li>
+<li><p class="first">在终端运行：python manage.py collectstatic ——将所有应用的static文件夹中的静态文件拷贝到项目的static文件夹（即STATIC_ROOT）中</p>
+</li>
+</ul>
+</div></blockquote>
+</li>
+</ol>
 </div>
 </div>
 </div>
