@@ -12,6 +12,7 @@ Structure
    :maxdepth: 2
    :titlesonly:
 
+   projectdoc/index
    project/index
    framework/index
    messagequeue/index
