@@ -85,6 +85,7 @@
                 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../projectdoc/index.html">项目文档</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../project/index.html">项目</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../database/index.html">数据库</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">框架</a><ul class="current">
 <li class="toctree-l2 current"><a class="current reference internal" href="">1. django</a><ul class="simple">
 </ul>
@@ -153,9 +154,13 @@
 <li><a class="reference internal" href="#django" id="id6">django</a><ul>
 <li><a class="reference internal" href="#id2" id="id7">表单类</a></li>
 <li><a class="reference internal" href="#id3" id="id8">类视图</a><ul>
-<li><a class="reference internal" href="#id4" id="id9">基本类视图</a></li>
-<li><a class="reference internal" href="#id5" id="id10">通用类视图</a></li>
-<li><a class="reference internal" href="#mixins" id="id11">mixins</a></li>
+<li><a class="reference internal" href="#id4" id="id9">通用类视图</a></li>
+<li><a class="reference internal" href="#mixins" id="id10">mixins</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id5" id="id11">聚合</a><ul>
+<li><a class="reference internal" href="#aggregate" id="id12">aggregate</a></li>
+<li><a class="reference internal" href="#annotate" id="id13">annotate</a></li>
 </ul>
 </li>
 </ul>
@@ -167,18 +172,68 @@
 </div>
 <div class="section" id="id3">
 <h2><a class="toc-backref" href="#id8">1.2. 类视图</a><a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h2>
-<div class="section" id="id4">
-<h3><a class="toc-backref" href="#id9">1.2.1. 基本类视图</a><a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h3>
+<p>基本类视图</p>
 <p>View</p>
-</div>
-<div class="section" id="id5">
-<h3><a class="toc-backref" href="#id10">1.2.2. 通用类视图</a><a class="headerlink" href="#id5" title="永久链接至标题">¶</a></h3>
+<div class="section" id="id4">
+<h3><a class="toc-backref" href="#id9">1.2.1. 通用类视图</a><a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h3>
 <p>ListView
 TemplateView
 RedirectView</p>
 </div>
 <div class="section" id="mixins">
-<h3><a class="toc-backref" href="#id11">1.2.3. mixins</a><a class="headerlink" href="#mixins" title="永久链接至标题">¶</a></h3>
+<h3><a class="toc-backref" href="#id10">1.2.2. mixins</a><a class="headerlink" href="#mixins" title="永久链接至标题">¶</a></h3>
+</div>
+</div>
+<div class="section" id="id5">
+<h2><a class="toc-backref" href="#id11">1.3. 聚合</a><a class="headerlink" href="#id5" title="永久链接至标题">¶</a></h2>
+<p>django提供了五种聚合：Avg, Max, Min, Sum, Count；两种生成聚合的方法：aggregate, annotate</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="21%" />
+<col width="32%" />
+<col width="20%" />
+<col width="27%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">生成聚合的方法</th>
+<th class="head">进行聚合的对象</th>
+<th class="head">返回值</th>
+<th class="head">是否是终结子句</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>aggregate</td>
+<td>整个查询结果集</td>
+<td>一个字典</td>
+<td>是</td>
+</tr>
+<tr class="row-odd"><td>annotate</td>
+<td>查询结果集里的每个对象</td>
+<td>查询结果集</td>
+<td>否</td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li>注：annotate会生成新的字段“注释”到每一个对象上</li>
+</ul>
+<div class="section" id="aggregate">
+<h3><a class="toc-backref" href="#id12">1.3.1. aggregate</a><a class="headerlink" href="#aggregate" title="永久链接至标题">¶</a></h3>
+<div class="highlight-py"><div class="highlight"><pre><span class="n">Book</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">aggregate</span><span class="p">(</span><span class="n">Avg</span><span class="p">(</span><span class="s1">&#39;price&#39;</span><span class="p">))</span>   <span class="c1"># {&#39;price__avg&#39;: 11.99}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="annotate">
+<h3><a class="toc-backref" href="#id13">1.3.2. annotate</a><a class="headerlink" href="#annotate" title="永久链接至标题">¶</a></h3>
+<div class="highlight-py"><div class="highlight"><pre><span class="sd">&quot;&quot;&quot;annotate的用法有两种&quot;&quot;&quot;</span>
+
+<span class="c1"># 第一种：直接使用</span>
+<span class="n">Book</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="n">Count</span><span class="p">(</span><span class="s1">&#39;authors&#39;</span><span class="p">))</span>  <span class="c1"># &#39;authors&#39;为Book中的引用字段</span>
+
+<span class="c1"># 第二种：基于values使用（此时values的作用是分组）</span>
+<span class="n">Case</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">values</span><span class="p">(</span><span class="s1">&#39;currency&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="n">Sum</span><span class="p">(</span><span class="s1">&#39;amount&#39;</span><span class="p">))</span>
+</pre></div>
+</div>
 </div>
 </div>
 </div>
