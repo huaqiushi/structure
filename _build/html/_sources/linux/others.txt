@@ -42,6 +42,7 @@ FHS（Filesystem Hierarchy Standard）
 2. 源码安装
     - 下载源文件：wget
     - 解压
+    - 配置
     - 编译：make
     - 安装：sudo make install
 
