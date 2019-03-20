@@ -73,16 +73,31 @@ mixins
 -------------
 管理静态文件
 ''''''''''''''
+在模板中，使用static标签生成静态文件的访问路径
+
+- STATIC_URL：静态文件访问路径。模板中加载静态文件时，通过此路径访问到STATICFILES_DIRS
+- STATICFILES_DIRS：静态文件存储路径（在collectstatic后，这里面的文件会被收集到STATIC_ROOT中）
+
+.. code-block:: py
+
+    STATIC_URL = '/static/'  # http://127.0.0.1:9999/static/
+
+    STATICFILES_DIRS = [
+        os.path.join(BASE_DIR, 'static'),  # /home/huaqiushi/Desktop/UniversalPlugin/static
+        '/var/www/static/',
+    ]
+
 
 管理用户上传的文件
 ''''''''''''''''''
-在Model中，使用FileField或ImageField定义的字段存储了用户上传的文件（这个字段是一个File对象）
-- MEDIA_ROOT：存储路径
-- MEDIA_URL：访问路径
+在Model中，使用FileField或ImageField定义的字段存储用户上传的文件（这个字段是一个File对象）
+
+- MEDIA_URL：用户文件访问路径
+- MEDIA_ROOT：用户文件存储路径
 
 
-用户认证
--------------
+用户认证和授权
+-----------------
 
 
 缓存
@@ -99,4 +114,3 @@ mixins
 
 安全
 -------
-
