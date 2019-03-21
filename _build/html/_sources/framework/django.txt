@@ -64,6 +64,7 @@ View
 ListView
 TemplateView
 RedirectView
+FormView
 
 mixins
 ''''''''''''
@@ -90,7 +91,7 @@ mixins
 
 管理用户上传的文件
 ''''''''''''''''''
-在Model中，使用FileField或ImageField定义的字段存储用户上传的文件（这个字段是一个File对象）
+在模板中，使用<input type="file">接收用户上传的文件（在Model中，使用FileField或ImageField定义的字段（是一个File对象）存储用户上传的文件）
 
 - MEDIA_URL：用户文件访问路径
 - MEDIA_ROOT：用户文件存储路径
