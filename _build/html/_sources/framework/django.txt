@@ -61,13 +61,45 @@ View
 
 通用类视图
 '''''''''''''
-ListView
-TemplateView
-RedirectView
-FormView
+通用类视图均继承自View
 
-mixins
-''''''''''''
+- ListView
+- FormView
+- TemplateView
+- RedirectView
+
+对基本类视图的拓展
+'''''''''''''''''''
+1. mixin：基于一个通用类视图进行混入
+2. 装饰类视图
+
+    - 装饰类视图的dispatch方法
+
+    .. code-block:: py
+
+        from django.contrib.auth.decorators import login_required
+        from django.utils.decorators import method_decorator
+        from django.views.generic import TemplateView
+
+        class ProtectedView(TemplateView):
+            template_name = 'secret.html'
+
+            @method_decorator(login_required)
+            def dispatch(self, *args, **kwargs):
+                return super(ProtectedView, self).dispatch(*args, **kwargs)
+
+
+    - 直接装饰类视图
+
+    .. code-block:: py
+
+        from django.contrib.auth.decorators import login_required
+        from django.utils.decorators import method_decorator
+        from django.views.generic import TemplateView
+
+        @method_decorator(login_required, name='dispatch')
+        class ProtectedView(TemplateView):
+            template_name = 'secret.html'
 
 
 管理文件

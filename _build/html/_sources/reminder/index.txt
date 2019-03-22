@@ -63,13 +63,8 @@
         1. 数据库：mysql, redis
         2. 完整项目：库存管理系统、独立站
 
-- 19-03-21
+- 19-03-22
 
-    - python标准库：os.environ
-
-        - 'PASSWORD': os.environ.get('DJANGO_MYSQL_PASSWORD')
-        - 'HOST': os.environ.get('DJANGO_MYSQL_HOST')
-
-    - python标准库：os.path
-
-        - BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    - linux：环境变量
+    - python：装饰器
+    - python：多继承的原理
