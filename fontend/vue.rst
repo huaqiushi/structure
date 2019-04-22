@@ -22,7 +22,7 @@ HTML插值
     .. code-block:: html
 
           <form v-on:submit.prevent="onSubmit">...</form>
-          <标签 指令:参数.修饰符="值">
+          <!-- 标签 指令:参数.修饰符="值" -->
 
           <!-- 指令是一种特殊的属性；指令的值可以是JS表达式 -->
 
