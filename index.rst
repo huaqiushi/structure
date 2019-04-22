@@ -22,7 +22,7 @@ Structure
    fontend/index
    linux/index
    logic/index
-   reminder/index
+
 
 
 * :ref:`genindex`
