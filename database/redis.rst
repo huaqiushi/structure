@@ -38,11 +38,11 @@ Python的第三方模块redis提供了两个类：StrictRedis和Redis。前者�
     r.set('age', '25')
 
 
-五种数据类型
----------------
+数据类型
+-----------
 
-String： { key: value }
-'''''''''''''''''''''''''''
+String
+''''''''''''
 - set(key, value, ex=None, px=None, nx=False, xx=False)：设置key的value（若key不存在则创建、存在则修改）
 
     - ex 过期时间，单位为秒
@@ -59,8 +59,8 @@ String： { key: value }
 - incr(self, key, amount=1)：自增key对应的值。当key不存在时，创建key=amount；若存在，则自增amount
 - append(key, value)：在key的值后追加value
 
-Hash： { key: {field: value, field: value, …} }
-'''''''''''''''''''''''''''''''''''''''''''''''''''
+Hash
+''''''''''
 - hset(key, field, value)：向key对应的hash中添加一个field。不存在创建，存在则修改
 - hsetnx(key, field, value)：向key对应的hash中添加一个field。不存在创建。
 - hmset(key, mapping)：向key对应的hash中添加多个field
@@ -72,21 +72,21 @@ Hash： { key: {field: value, field: value, …} }
 - hincrby(key, field, amount=1)
 - hscan(key, cursor=0, match=None, count=None)：增量式迭代获取。用于大数据量时分批获取值
 
-List： { key: [value, value, …] }
-''''''''''''''''''''''''''''''''''
+List
+''''''''
 - rpush(key, value, value, …)：向列表的右边追加value。若key存在则追加，不存在则创建并追加
 - rpushx(key, value)：向列表的右边追加value。若key存在则追加
 - rpop(key)：在列表的右边弹出一个元素
 - lpush/lpushx/lpop
 
-Set： { key: [menber, member, …] } （member不允许重复）
-''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+Set
+''''''''
 - sadd(key, menber, member, …)
 - scard(key)
 - spop(key)
 
-Sort Set： 有序的set
-'''''''''''''''''''''''
+Sort Set
+'''''''''''''
 - zadd(key, score, member, score, member, …)
 
 
