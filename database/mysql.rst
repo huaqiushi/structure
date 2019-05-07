@@ -14,8 +14,8 @@ mysql默认只有本地主机可以访问，远程连接步骤如下
 
 .. code-block:: mysql
 
-    mysql> use mysql
-    mysql> grant all privileges on *.* to 'root'@'101.80.250.153' identified by '123';
+    mysql> USE mysql
+    mysql> GRANT all privileges on *.* to 'root'@'101.80.250.153' identified by '123';
     mysql> FLUSH PRIVILEGES;
 
     # 第一个*是数据库，可以改成允许访问的数据库名称
