@@ -1,6 +1,9 @@
 虚拟环境
 ============
 
+virtualenv
+--------------
+
 1. 安装virtualenv：pip install virtualenv
 2. 在当前目录下创建虚拟环境：
 
@@ -14,3 +17,12 @@
 - source ./bin/activate
 
 4. 退出虚拟环境：deactivate
+
+
+virtualenvwrapper
+----------------------
+
+将所有虚拟环境都存放在WORKON_HOME指向的路径下统一管理
+
+1. 进入一个虚拟环境：workon venv
+2. 新建一个虚拟环境：mkvirtualenv venv
