@@ -1,8 +1,8 @@
-Linux
-==========
+搭建环境
+============
 
 .. toctree::
     :maxdepth: 2
     :numbered:
 
-    others
+    virtualenv

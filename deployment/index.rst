@@ -5,5 +5,4 @@
     :maxdepth: 2
     :numbered:
 
-    virtualenv
     nginx+uwsgi+django

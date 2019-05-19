@@ -7,17 +7,20 @@ FHS（Filesystem Hierarchy Standard）
 '''''''''''''''''''''''''''''''''''''''
 - /bin：对于操作系统而言，必要的可执行程序（如：ls, cat）
     - 注：bin为binary的缩写，sbin中的s为superuser的缩写
+    - $HOME/.local/bin/：用户下载的可执行程序
 
 - /etc：配置文件
     - 注：etc为Editable Text Configuration的缩写
 
 - /usr：用户文件
-    - /usr/bin：对于操作系统而言，非必要的可执行程序（如：python, mysql）
-    - /usr/share：静态文件
+    - /usr/bin/：对于操作系统而言，非必要的可执行程序（如：python, mysql）
+    - /usr/share/：静态文件
 
 - /var：在正常运行的系统中其内容不断变化的文件
-    - /var/log：日志文件
+    - /var/log/：日志文件
     - /var/lib/：程序在运行时维护的持久性数据。例如：数据库的系统元数据
+
+
 
 文件名的颜色
 '''''''''''''''

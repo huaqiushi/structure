@@ -14,6 +14,7 @@ Structure
 
    projectdoc/index
    project/index
+   buildenvironment/index
    database/index
    framework/index
    messagequeue/index
