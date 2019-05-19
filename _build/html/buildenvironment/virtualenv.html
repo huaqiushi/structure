@@ -1,0 +1,261 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="zh-CN" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="zh-CN" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>1. 虚拟环境 &mdash; TechNote 1.0.1 文档</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script type="text/javascript" src="../_static/translations.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="搜索" href="../search.html" />
+    <link rel="next" title="2. 目录结构" href="directorystructure.html" />
+    <link rel="prev" title="搭建环境" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> TechNote
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../projectdoc/index.html">项目文档</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">搭建环境</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">1. 虚拟环境</a></li>
+<li class="toctree-l2"><a class="reference internal" href="directorystructure.html">2. 目录结构</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../database/index.html">数据库</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../framework/index.html">框架</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../messagequeue/index.html">消息队列</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../deployment/index.html">项目部署</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tools/index.html">开发工具</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../fontend/index.html">前端</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../linux/index.html">Linux</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../logic/index.html">逻辑</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">TechNote</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">搭建环境</a> &raquo;</li>
+        
+      <li>1. 虚拟环境</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/buildenvironment/virtualenv.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="id1">
+<h1>1. 虚拟环境<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h1>
+<div class="section" id="virtualenv">
+<h2>1.1. virtualenv<a class="headerlink" href="#virtualenv" title="永久链接至标题">¶</a></h2>
+<ol class="arabic simple">
+<li><p>安装：pip install virtualenv</p></li>
+<li><p>在当前目录下创建虚拟环境：</p></li>
+</ol>
+<ul class="simple">
+<li><p>virtualenv env</p></li>
+<li><p>virtualenv -p /usr/bin/python3.5 venv  创建时选择python3.5作为解释器</p></li>
+<li><p>virtualenv –no-site-packages venv  创建时不依赖系统环境中的site packages（默认依赖）</p></li>
+</ul>
+<ol class="arabic simple" start="3">
+<li><p>启动虚拟环境</p></li>
+</ol>
+<ul class="simple">
+<li><p>cd venv</p></li>
+<li><p>source ./bin/activate</p></li>
+</ul>
+<ol class="arabic simple" start="4">
+<li><p>退出虚拟环境：deactivate</p></li>
+</ol>
+</div>
+<div class="section" id="virtualenvwrapper">
+<h2>1.2. virtualenvwrapper<a class="headerlink" href="#virtualenvwrapper" title="永久链接至标题">¶</a></h2>
+<ol class="arabic simple">
+<li><p>安装：pip install virtualenvwrapper</p></li>
+<li><p>初始化——在$HOME/.bashrc中添加：</p></li>
+</ol>
+<ul class="simple">
+<li><p>export WORKON_HOME=$HOME/.virtualenvs  # 指定虚拟环境存放路径</p></li>
+<li><p>export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3</p></li>
+<li><p>source $HOME/.local/bin/virtualenvwrapper.sh</p></li>
+</ul>
+<ol class="arabic simple" start="3">
+<li><p>新建一个虚拟环境：mkvirtualenv venv</p></li>
+<li><p>进入一个虚拟环境：workon venv</p></li>
+<li><p>退出虚拟环境：deactivate</p></li>
+</ol>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="directorystructure.html" class="btn btn-neutral float-right" title="2. 目录结构" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="index.html" class="btn btn-neutral float-left" title="搭建环境" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Tony Hua
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
