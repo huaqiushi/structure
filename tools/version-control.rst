@@ -7,25 +7,24 @@
 -----------
 a. 创建远程仓库
 b. checkout 创建本地仓库（git为clone）
-c. add 将代码加入本地仓库
+c. add 从工作区添加代码 **（svn添加至本地仓库；git添加至暂存区）**
 d. commit 提交代码 **（svn提交至远程仓库；git提交至本地仓库（之后push提交至远程仓库））**
 
 注：git与svn的区别在于：git的本地仓库是远程仓库的克隆，而svn的本地仓库可以只有远程仓库的部分代码
 
 git命令
 ----------
-*. git add
-    有两个用途：
-    1. 将文件添加到工作区（执行命令前文件状态为untracked，执行后变为tracked）
-    2. 将工作区中已修改的文件添加到暂存区（执行命令前文件状态为modified，执行后变为staged）
-*. git commit    将暂存区的文件添加到本地仓库
-*. git fetch
-*. git merge
-*. git update
-*. git checkout
-*. git reset
-*. git rebase
-*. git stash
+
+#. git add    有两个用途： 将文件添加到工作区（执行命令前文件状态为untracked，执行后变为tracked）；将工作区中已修改的文件添加到暂存区（执行命令前文件状态为modified，执行后变为staged）
+#. git commit    将暂存区的文件提交到本地仓库
+#. git status    查看工作区和暂存区状态
+#. git fetch
+#. git merge
+#. git update
+#. git checkout
+#. git reset    版本回退
+#. git rebase
+#. git stash
 
 使项目中的某些文件不被Git追踪
 -------------------------------
