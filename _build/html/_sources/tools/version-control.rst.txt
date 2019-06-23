@@ -16,7 +16,7 @@ git命令
 ----------
 
 #. git add    有两个用途： 将文件添加到工作区（执行命令前文件状态为untracked，执行后变为tracked）；将工作区中已修改的文件添加到暂存区（执行命令前文件状态为modified，执行后变为staged）
-#. git commit    将暂存区的文件提交到本地仓库
+#. git commit    将暂存区的文件提交到本地仓库（注：在pycharm中，commit前无需add，而是直接将工作区文件提交至本地仓库）
 #. git status    查看工作区和暂存区状态
 #. git fetch
 #. git merge
