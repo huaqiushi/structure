@@ -12,6 +12,21 @@ d. commit 提交代码 **（svn提交至远程仓库；git提交至本地仓库�
 
 注：git与svn的区别在于：git的本地仓库是远程仓库的克隆，而svn的本地仓库可以只有远程仓库的部分代码
 
+git命令
+----------
+*. git add
+    有两个用途：
+    1. 将文件添加到工作区（执行命令前文件状态为untracked，执行后变为tracked）
+    2. 将工作区中已修改的文件添加到暂存区（执行命令前文件状态为modified，执行后变为staged）
+*. git commit    将暂存区的文件添加到本地仓库
+*. git fetch
+*. git merge
+*. git update
+*. git checkout
+*. git reset
+*. git rebase
+*. git stash
+
 使项目中的某些文件不被Git追踪
 -------------------------------
 1. 在本地仓库添加.gitignore文件可以匹配之后添加的文件，使其不被追踪
