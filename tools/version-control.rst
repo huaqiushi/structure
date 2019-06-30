@@ -12,7 +12,7 @@ d. commit 提交代码 **（svn提交至远程仓库；git提交至本地仓库�
 
 注：git与svn的区别在于：git的本地仓库是远程仓库的克隆，而svn的本地仓库可以只有远程仓库的部分代码
 
-git命令
+Git命令
 ----------
 
 #. git add    有两个用途： 一是将文件添加到工作区（执行命令前文件状态为untracked，执行后变为tracked）；二是将工作区中已修改的文件添加到暂存区（执行命令前文件状态为modified，执行后变为staged）
@@ -61,3 +61,11 @@ object
 HEAD
 ''''''''
 保存了用户当前所在的分支
+
+FAQ
+--------
+
+Git版本回滚
+''''''''''''''
+1. 回滚整个提交: git checkout version-number
+2. 回滚特定文件: git checkout version-number filename（提交代码时会给当前所有修改过的文件的修改行都打上同一个版本号）
