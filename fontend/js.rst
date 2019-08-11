@@ -11,7 +11,7 @@ jQuery定义了一个全局函数，：jQuery()，别名为$()。
 
     - 通用方法：each, map, index, is
     - 获取或设置HTML属性：attr, removeAttr
-    - 获取或设置HTML表单值：
+    - 获取或设置HTML表单值：sasasas
     - 获取或设置CSS属性：css
     - 获取或设置CSS类：addClass, removeClass, toggleClass, hasClass
 
