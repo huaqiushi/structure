@@ -1,22 +1,6 @@
 JS
 ===========
 
-jQuery
-------
-jQuery定义了一个全局函数，：jQuery()，别名为$()。
-
-- jQuery函数：$()
-- jQuery对象：jQuery函数的返回值，是一个类数组
-- jQuery方法：jQuery对象的方法。例如$('selector').css()
-
-    - 通用方法：each, map, index, is
-    - 获取或设置HTML属性：attr, removeAttr
-    - 获取或设置HTML表单值：sasasas
-    - 获取或设置CSS属性：css
-    - 获取或设置CSS类：addClass, removeClass, toggleClass, hasClass
-
-- jQuery工具函数：定义在jQuery函数作用域下的函数。例如$.ajax()、$.each()
-
 声明变量
 ----
 - ES5：var, function
