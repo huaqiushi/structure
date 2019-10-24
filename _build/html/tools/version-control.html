@@ -269,6 +269,10 @@
 <ol class="arabic simple">
 <li><p>回滚整个提交: git checkout version-number</p></li>
 <li><p>回滚特定文件: git checkout version-number filename（提交代码时会给当前所有修改过的文件的修改行都打上同一个版本号）</p></li>
+<li><p>回滚一个分支
+- git reset –soft version-number: 回滚到暂存区
+- git reset –mixed version-number: 回滚到工作区
+- git reset –hard version-number: 回滚到本地仓库</p></li>
 </ol>
 </div>
 </div>
