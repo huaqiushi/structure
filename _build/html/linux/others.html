@@ -1,0 +1,311 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="zh-CN" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="zh-CN" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>1. 其它 &mdash; TechNote 1.0.1 文档</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script type="text/javascript" src="../_static/translations.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="搜索" href="../search.html" />
+    <link rel="next" title="逻辑" href="../logic/index.html" />
+    <link rel="prev" title="Linux" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> TechNote
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../projectdoc/index.html">项目文档</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../buildenvironment/index.html">搭建环境</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../database/index.html">数据库</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../framework/index.html">框架</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../messagequeue/index.html">消息队列</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../deployment/index.html">部署</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tools/index.html">开发工具</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../fontend/index.html">前端</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Linux</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">1. 其它</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../logic/index.html">逻辑</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">TechNote</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">Linux</a> &raquo;</li>
+        
+      <li>1. 其它</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/linux/others.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="id1">
+<h1>1. 其它<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h1>
+<div class="section" id="id2">
+<h2>1.1. 文件系统<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
+<div class="section" id="fhs-filesystem-hierarchy-standard">
+<h3>1.1.1. FHS（Filesystem Hierarchy Standard）<a class="headerlink" href="#fhs-filesystem-hierarchy-standard" title="永久链接至标题">¶</a></h3>
+<ul class="simple">
+<li><dl class="simple">
+<dt>/bin：对于操作系统而言，必要的可执行程序（如：ls, cat）</dt><dd><ul>
+<li><p>注：bin为binary的缩写，sbin中的s为superuser的缩写</p></li>
+<li><p>$HOME/.local/bin/：用户下载的可执行程序</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>/etc：配置文件</dt><dd><ul>
+<li><p>注：etc为Editable Text Configuration的缩写</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>/usr：用户文件</dt><dd><ul>
+<li><p>/usr/bin/：对于操作系统而言，非必要的可执行程序（如：python, mysql）</p></li>
+<li><p>/usr/share/：静态文件</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>/var：在正常运行的系统中其内容不断变化的文件</dt><dd><ul>
+<li><p>/var/log/：日志文件</p></li>
+<li><p>/var/lib/：程序在运行时维护的持久性数据。例如：数据库的系统元数据</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</div>
+<div class="section" id="id3">
+<h3>1.1.2. 文件名的颜色<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h3>
+<ul class="simple">
+<li><p>蓝色：文件夹（带有绿色阴影的是获得最高权限的文件夹）</p></li>
+<li><p>浅蓝色：链接文件</p></li>
+<li><p>白色：普通文件</p></li>
+<li><p>绿色：可执行文件</p></li>
+<li><p>红色：压缩文件</p></li>
+<li><p>黄色：设备文件</p></li>
+</ul>
+</div>
+<div class="section" id="id4">
+<h3>1.1.3. 权限管理<a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h3>
+</div>
+</div>
+<div class="section" id="id5">
+<h2>1.2. 软件包的安装与管理<a class="headerlink" href="#id5" title="永久链接至标题">¶</a></h2>
+<div class="section" id="id6">
+<h3>1.2.1. 安装软件包<a class="headerlink" href="#id6" title="永久链接至标题">¶</a></h3>
+<ol class="arabic simple">
+<li><dl class="simple">
+<dt>APT安装（Advanced Package Tool）</dt><dd><ul class="simple">
+<li><p>apt-get是Debian Linux系统的包管理工具</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>源码安装</dt><dd><ul class="simple">
+<li><p>下载源文件：wget</p></li>
+<li><p>解压</p></li>
+<li><p>配置</p></li>
+<li><p>编译：make</p></li>
+<li><p>安装：sudo make install</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ol>
+</div>
+</div>
+<div class="section" id="id7">
+<h2>1.3. 环境变量<a class="headerlink" href="#id7" title="永久链接至标题">¶</a></h2>
+<p>1. os.environ
+PATH /home/huaqiushi/bin:/home/huaqiushi/.local/bin:/usr/local/sbin:/usr/</p>
+</div>
+<div class="section" id="id8">
+<h2>1.4. 命令<a class="headerlink" href="#id8" title="永久链接至标题">¶</a></h2>
+<ul class="simple">
+<li><p>dpkg -l –显示已安装软件包列表</p></li>
+</ul>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../logic/index.html" class="btn btn-neutral float-right" title="逻辑" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="index.html" class="btn btn-neutral float-left" title="Linux" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Tony Hua
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
