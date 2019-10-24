@@ -70,6 +70,7 @@ Git版本回滚
 1. 回滚整个提交: git checkout version-number
 2. 回滚特定文件: git checkout version-number filename（提交代码时会给当前所有修改过的文件的修改行都打上同一个版本号）
 3. 回滚一个分支
-   - git reset --soft version-number: 回滚到暂存区
-   - git reset --mixed version-number: 回滚到工作区
-   - git reset --hard version-number: 回滚到本地仓库
+   
+   - git reset --soft version-number: 回滚到暂存区（add之后commit之前）
+   - git reset --mixed version-number: 回滚到工作区（modify之后add之前）
+   - git reset --hard version-number: 回滚到本地仓库（modify之前）
