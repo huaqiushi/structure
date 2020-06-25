@@ -21,7 +21,6 @@ Structure
    tools/index
    fontend/index
    linux/index
-   logic/index
 
 
 
