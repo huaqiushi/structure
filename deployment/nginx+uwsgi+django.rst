@@ -164,7 +164,32 @@ nginx+uwsgi+django
                 include     uwsgi_params;
             }
         }
+    
+    4. 其它
+    
+    .. code-block:: nginx
+        
+        http {
+          upstream frontends {
+            server 127.0.0.1:8000 weight=5;
+            server 127.0.0.1:8001 weight=7;
+            server 127.0.0.1:8002 weight=5;
+          }
 
+          server {
+            listen       80;
+            server_name  domain.com;
+            charset      utf-8;
+
+            location / {
+              proxy_set_header  Host $host;
+              proxy_set_header  X-Real-IP $remote_addr;
+              proxy_set_header  X-Scheme $scheme;
+              proxy_redirect    off;
+              proxy_pass        http://frontends;
+            }
+          }
+        }
 
 3. 启动
 
